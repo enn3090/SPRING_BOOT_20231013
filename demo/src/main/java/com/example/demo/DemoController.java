@@ -20,11 +20,10 @@ public class DemoController {
         return "hello";
     }
 
-    // --- 👇 여기에 새 코드를 추가하세요 ---
+    // 상세 소개 페이지를 위한 새로운 경로 매핑
     @GetMapping("/about_detailed")
     public String about() {
+        // templates 폴더의 about_detailed.html 파일을 찾아 리턴합니다.
         return "about_detailed";
     }
-    // --- 👆 여기까지 ---
-
 }
