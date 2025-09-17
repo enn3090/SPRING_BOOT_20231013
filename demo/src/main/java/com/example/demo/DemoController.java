@@ -19,4 +19,12 @@ public class DemoController {
         // 뷰 리졸버(View Resolver)가 'hello.html' 템플릿을 찾아 렌더링합니다.
         return "hello";
     }
+
+    // --- 👇 여기에 새 코드를 추가하세요 ---
+    @GetMapping("/about_detailed")
+    public String about() {
+        return "about_detailed";
+    }
+    // --- 👆 여기까지 ---
+
 }
