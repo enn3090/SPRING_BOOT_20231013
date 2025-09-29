@@ -1,0 +1,14 @@
+{
+    // VS Code의 Java 확장 프로그램들에게 이 프로젝트가 사용할 기본 JDK가 무엇인지 알려줍니다.
+    "java.home": "/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home",
+
+    // Java 프로젝트를 실행할 때 사용할 런타임 환경을 명시적으로 등록합니다.
+    // 이렇게 하면 컴파일과 실행 환경이 일치하게 되어 안정성이 높아집니다.
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-21",
+            "path": "/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home",
+            "default": true
+        }
+    ]
+}
