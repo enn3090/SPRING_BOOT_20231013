@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 // 1. import 경로 및 클래스 이름 수정
 import com.example.demo.model.domain.TestDB; // 'domain' 경로 추가
-import com.example.demo.model.service.TestService; // 'Testservice' -> 'TestService' (대문자 S)
+import com.example.demo.service.TestService;
+
 import lombok.RequiredArgsConstructor;
 
 /**

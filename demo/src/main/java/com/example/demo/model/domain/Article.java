@@ -25,4 +25,10 @@ public class Article {
         this.title = title;
         this.content = content;
     }
+
+    // 이 메서드를 Article 클래스 안에 추가하세요.
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }

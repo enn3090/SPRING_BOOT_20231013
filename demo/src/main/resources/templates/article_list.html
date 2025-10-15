@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <title>블로그 게시판</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Bootstrap CSS 링크 -->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -14,7 +13,6 @@
     <div class="container">
       <h1 class="mt-5">블로그 게시판</h1>
 
-      <!-- 게시글 목록을 보여주는 부분 -->
       <div class="mt-5">
         <h2>게시글 목록</h2>
         <table class="table table-bordered">
@@ -23,20 +21,36 @@
               <th>ID</th>
               <th>제목</th>
               <th>내용</th>
+              <th>관리</th>
             </tr>
           </thead>
           <tbody>
-            <!-- Controller에서 받은 articles 리스트를 반복해서 출력 -->
             <tr th:each="article : ${articles}">
               <td th:text="${article.id}"></td>
               <td th:text="${article.title}"></td>
               <td th:text="${article.content}"></td>
+              <td>
+                <a
+                  th:href="@{/article_edit/{id}(id=${article.id})}"
+                  class="btn btn-warning btn-sm"
+                  >수정</a
+                >
+                <form
+                  th:action="@{/api/article_delete/{id}(id=${article.id})}"
+                  method="post"
+                  style="display: inline"
+                >
+                  <input type="hidden" name="_method" value="delete" />
+                  <button type="submit" class="btn btn-danger btn-sm">
+                    삭제
+                  </button>
+                </form>
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <!-- ======== 이 부분이 새로 추가된 새 글 작성 폼입니다 ======== -->
       <div class="mt-4">
         <h2>게시글 추가</h2>
         <form th:action="@{/api/articles}" method="post">
@@ -63,7 +77,6 @@
           <button type="submit" class="btn btn-primary">추가</button>
         </form>
       </div>
-      <!-- ======================================================== -->
     </div>
   </body>
 </html>
