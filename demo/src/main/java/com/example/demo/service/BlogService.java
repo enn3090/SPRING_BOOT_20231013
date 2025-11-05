@@ -1,9 +1,10 @@
-package com.example.demo.service; // 실제 폴더 위치와 일치하는 올바른 주소입니다.
+package com.example.demo.service;
 
-import com.example.demo.model.domain.Article;
+import com.example.demo.model.domain.Board;
 import com.example.demo.model.dto.AddArticleRequest;
-import com.example.demo.model.repository.BlogRepository;
-import jakarta.transaction.Transactional;
+import com.example.demo.model.repository.BoardRepository;
+import org.springframework.transaction.annotation.Transactional; // 올바른 import
+
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -13,29 +14,37 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class BlogService {
 
-    private final BlogRepository blogRepository;
+    private final BoardRepository boardRepository;
 
-    public List<Article> findAll() {
-        return blogRepository.findAll();
+    public List<Board> findAll() {
+        return boardRepository.findAll();
     }
 
-    public Article save(AddArticleRequest request) {
-        return blogRepository.save(request.toEntity());
+    public Board save(AddArticleRequest request) {
+        return boardRepository.save(request.toEntity());
     }
 
-    public Optional<Article> findById(Long id) {
-        return blogRepository.findById(id);
+    public Optional<Board> findById(Long id) {
+        return boardRepository.findById(id);
     }
 
+    /**
+     * 👇 [500 오류 수정]
+     * AddArticleRequest DTO 대신 title, content 문자열을 직접 받습니다.
+     */
     @Transactional
-    public void update(Long id, AddArticleRequest request) {
-        Optional<Article> optionalArticle = blogRepository.findById(id);
-        optionalArticle.ifPresent(article -> {
-            article.update(request.getTitle(), request.getContent());
+    public void update(Long id, String title, String content) { // 👈 매개변수 변경
+        Optional<Board> optionalBoard = boardRepository.findById(id);
+
+        optionalBoard.ifPresent(board -> {
+            board.update(
+                    title, // (새 값)
+                    content // (새 값)
+            );
         });
     }
 
     public void delete(Long id) {
-        blogRepository.deleteById(id);
+        boardRepository.deleteById(id);
     }
 }

@@ -1,19 +1,25 @@
 package com.example.demo.model.dto;
 
-import lombok.*; // 어노테이션 자동 생성
-import com.example.demo.model.domain.Article;
+import com.example.demo.model.domain.Board;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@NoArgsConstructor // 기본 생성자 추가
-@AllArgsConstructor // 모든 필드 값을 파라미터로 받는 생성자 추가
-@Data // getter, setter, toString, equals 등 자동 생성
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
 public class AddArticleRequest {
+
     private String title;
     private String content;
 
-    public Article toEntity() { // Article 객체 생성
-        return Article.builder()
+    // 👇 Board.java의 @Builder에 맞게 수정
+    public Board toEntity() {
+        return Board.builder()
                 .title(title)
                 .content(content)
+                // user, newdate, viewcount 등은 Board의 @Builder에서
+                // "GUEST", "0" 같은 기본값으로 자동 처리됩니다.
                 .build();
     }
 }
