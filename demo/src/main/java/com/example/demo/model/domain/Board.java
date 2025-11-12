@@ -39,15 +39,13 @@ public class Board {
     // --- 여기까지 수정 ---
 
     @Builder
-    public Board(String title, String content) {
+    public Board(String title, String content, String username, String newdate, String viewcount, String likecount) {
         this.title = title;
         this.content = content;
-
-        // 새 필드 초기화 (임시값)
-        this.username = "GUEST";
-        this.newdate = "날짜없음";
-        this.viewcount = "0";
-        this.likecount = "0";
+        this.username = username;
+        this.newdate = newdate;
+        this.viewcount = viewcount;
+        this.likecount = likecount;
     }
 
     public void update(String title, String content) {

@@ -2,9 +2,14 @@ package com.example.demo.model.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import com.example.demo.model.domain.Board; // 👈 1. Board 클래스를 import
+import com.example.demo.model.domain.Board;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Repository
-// 👇 2. 'Bord' -> 'Board' (오타 수정), 'Article' -> 'Board' (연동 객체 수정)
+// JpaRepository<Article, Long>가 아닌 JpaRepository<Board, Long>
 public interface BoardRepository extends JpaRepository<Board, Long> {
+
+    // (Slide 19) 검색 인터페이스 정의
+    Page<Board> findByTitleContainingIgnoreCase(String title, Pageable pageable);
 }

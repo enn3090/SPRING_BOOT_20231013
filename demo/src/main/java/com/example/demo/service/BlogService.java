@@ -5,6 +5,9 @@ import com.example.demo.model.dto.AddArticleRequest;
 import com.example.demo.model.repository.BoardRepository;
 import org.springframework.transaction.annotation.Transactional; // 올바른 import
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +21,17 @@ public class BlogService {
 
     public List<Board> findAll() {
         return boardRepository.findAll();
+    }
+
+    // 👇 [Slide 18] Pageable을 사용하는 findAll 메소드 오버로딩
+    public Page<Board> findAll(Pageable pageable) {
+        return boardRepository.findAll(pageable);
+    }
+
+    // 👇 [Slide 18] 키워드 검색 기능 구현
+    public Page<Board> searchByKeyword(String keyword, Pageable pageable) {
+        // [Slide 18] LIKE 검색 제공(대소문자 무시)
+        return boardRepository.findByTitleContainingIgnoreCase(keyword, pageable);
     }
 
     public Board save(AddArticleRequest request) {

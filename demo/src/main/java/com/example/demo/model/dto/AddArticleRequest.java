@@ -13,13 +13,21 @@ public class AddArticleRequest {
     private String title;
     private String content;
 
-    // 👇 Board.java의 @Builder에 맞게 수정
+    // 👇 [오류 수정] 필드명을 Board.java 엔티티와 일치시킵니다.
+    private String username; // user -> username
+    private String newdate;
+    private String viewcount; // count -> viewcount
+    private String likecount; // likec -> likecount
+
     public Board toEntity() {
         return Board.builder()
                 .title(title)
                 .content(content)
-                // user, newdate, viewcount 등은 Board의 @Builder에서
-                // "GUEST", "0" 같은 기본값으로 자동 처리됩니다.
+                // 👇 [오류 수정] 빌더 메소드명도 엔티티와 일치시킵니다.
+                .username(username) // user -> username
+                .newdate(newdate)
+                .viewcount(viewcount) // count -> viewcount
+                .likecount(likecount) // likec -> likecount
                 .build();
     }
 }
