@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>로그인</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- board_list.html과 동일한 부트스트랩 연결 -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      /* 로그인 폼을 화면 중앙에 배치하기 위한 스타일 */
+      .login-container {
+        max-width: 400px; /* 최대 너비 제한 */
+        margin: 100px auto; /* 상하 여백 100px, 좌우 중앙 정렬 */
+        padding: 30px;
+        border: 1px solid #ddd; /* 테두리 추가 */
+        border-radius: 10px; /* 모서리 둥글게 */
+        background-color: #fff; /* 배경색 흰색 */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+      }
+      body {
+        background-color: #f8f9fa; /* 배경색 설정 */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="login-container">
+        <h2 class="text-center mb-4">로그인</h2>
+
+        <!-- 로그인 폼 -->
+        <form th:action="@{/api/login_check}" method="post">
+          <!-- 아이디(이메일) 입력 -->
+          <div class="form-group">
+            <label for="email">아이디(이메일)</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              name="email"
+              placeholder="이메일을 입력하세요"
+              required
+            />
+          </div>
+
+          <!-- 비밀번호 입력 -->
+          <div class="form-group">
+            <label for="password">비밀번호</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              name="password"
+              placeholder="비밀번호를 입력하세요"
+              required
+            />
+          </div>
+
+          <!-- 로그인 상태 유지 체크박스 -->
+          <div class="form-group form-check">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="remember-me"
+              name="remember-me"
+            />
+            <label class="form-check-label" for="remember-me"
+              >로그인 상태 유지</label
+            >
+          </div>
+
+          <!-- 로그인 버튼 -->
+          <button type="submit" class="btn btn-primary btn-block">
+            로그인
+          </button>
+
+          <!-- 회원가입 버튼 (보조) -->
+          <a th:href="@{/join_new}" class="btn btn-secondary btn-block mt-2"
+            >회원가입</a
+          >
+        </form>
+
+        <!-- 에러 메시지 출력 (로그인 실패 시) -->
+        <div class="mt-3 text-danger text-center" th:if="${error}">
+          <p th:text="${error}"></p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
