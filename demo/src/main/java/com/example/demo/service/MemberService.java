@@ -3,15 +3,15 @@ package com.example.demo.service;
 import com.example.demo.model.domain.Member;
 import com.example.demo.model.dto.AddMemberRequest;
 import com.example.demo.model.repository.MemberRepository;
-import jakarta.validation.Valid; // ★ [추가] 메서드 파라미터 검증용
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated; // ★ [추가] 클래스 레벨 검증용
+import org.springframework.validation.annotation.Validated;
 
 @Service
-@Validated // ★ [추가] 이 클래스의 메서드 호출 시 유효성 검사를 수행하겠다는 설정
+@Validated
 @Transactional
 @RequiredArgsConstructor
 public class MemberService {
@@ -21,12 +21,10 @@ public class MemberService {
 
     /**
      * 회원가입 기능
-     * (@Valid 추가: 컨트롤러뿐만 아니라 서비스단에서도 들어오는 데이터의 유효성을 검사합니다)
      */
-    public Member saveMember(@Valid AddMemberRequest request) { // ★ @Valid 추가 [cite: 771]
+    public Member saveMember(@Valid AddMemberRequest request) {
         validateDuplicateMember(request);
 
-        // 비밀번호 암호화
         String encodedPassword = passwordEncoder.encode(request.getPassword());
         request.setPassword(encodedPassword);
 
@@ -44,20 +42,32 @@ public class MemberService {
     }
 
     /**
-     * 로그인 체크 기능
+     * 로그인 체크 기능 (로그 추가됨!)
      */
     public Member loginCheck(String email, String rawPassword) {
-        Member member = memberRepository.findByEmail(email); // 이메일 조회 [cite: 708]
+        // 1. 이메일로 회원 조회
+        Member member = memberRepository.findByEmail(email);
+
+        // [로그] 입력받은 이메일 확인
+        System.out.println("로그인 시도 이메일: " + email);
 
         if (member == null) {
-            throw new IllegalArgumentException("등록되지 않은 이메일입니다."); // [cite: 710]
+            // [로그] 이메일 없음
+            System.out.println("❌ 실패: 등록되지 않은 이메일입니다.");
+            throw new IllegalArgumentException("등록되지 않은 이메일입니다.");
         }
 
-        // 비밀번호 일치 확인 (matches 메서드: 평문 비번, 암호화된 비번 비교)
-        if (!passwordEncoder.matches(rawPassword, member.getPassword())) { // [cite: 711]
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다."); // [cite: 713]
+        // 2. 비밀번호 일치 확인
+        if (!passwordEncoder.matches(rawPassword, member.getPassword())) {
+            // [로그] 비밀번호 불일치
+            System.out.println("❌ 실패: 비밀번호가 틀렸습니다.");
+            System.out.println("입력한 비번: " + rawPassword);
+            System.out.println("DB 암호화 비번: " + member.getPassword());
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
-        return member; // 인증 성공 시 회원 객체 반환 [cite: 714]
+        // [로그] 성공
+        System.out.println("✅ 로그인 성공! 환영합니다: " + member.getEmail());
+        return member;
     }
 }
