@@ -1,88 +1,81 @@
-주차별 개발 내용 정리
-1주차: 강의 소개 및 개발 환경 준비
-학습 내용:자바 웹 프로그래밍 및 Spring Boot 프레임워크 소개
-프로젝트 적용: Visual Studio Code 및 Git/GitHub 개발 환경 설정 확인
-기본 프로젝트 구조 설정 (.gitignore, mvnw, pom.xml 등 초기 파일)
+**프로젝트 소개**
 
-2주차: 개발 환경 설정 및 테스트
-학습 내용: Spring Boot 개발 환경 상세 설정 (VS Code 확장 프로그램 설치, JDK 연동)
-Spring Boot 프로젝트 생성 (Spring Initializr 사용) 및 의존성 추가 (Web, Thymeleaf, DevTools, Lombok 등)
-기본 웹 페이지 실행 (Controller, @GetMapping, Thymeleaf index.html)
-GitHub 연동 및 소스 코드 관리 (Commit, Push)
-Thymeleaf 기본 문법 소개 (th:text)
-프로젝트 적용: pom.xml: Spring Boot Starter Web, Thymeleaf, DevTools, Lombok 의존성 추가
-DemoApplication.java: Spring Boot 메인 애플리케이션 클래스
-DemoController.java: 초기 @GetMapping("/hello") 등 URL 매핑 및 Model 데이터 전달
-templates/index.html, templates/hello.html, templates/hello2.html: Thymeleaf를 사용한 기본 HTML 페이지 작성 및 데이터 출력 (th:text)
-application.properties: 초기 설정
+개발 기간: 2025년 9월 ~ 2025년 12월
 
-3주차: 포트폴리오 작성 (프론트엔드)
-학습 내용: Bootstrap 5 기반 포트폴리오 템플릿 적용
-Static 자원 (CSS, JS, 이미지, 라이브러리) 관리 (static 폴더)
-index.html 구조 수정 및 개인 프로필 정보 업데이트 (이름, 사진, 소개 문구 등)
-상세 소개 페이지 (about_detailed.html) 추가 및 연결
-Thymeleaf 추가 문법 (@{}, th:href, th:with) 학습 및 적용
-프로젝트 적용: templates/index.html: Bootstrap 템플릿 적용 및 내용 수정 (메뉴 한글화, 프로필 정보, 기술 스택, 경험/교육 등)
-templates/about_detailed.html: 상세 소개 페이지 생성 및 내용 작성
-static/: CSS, JS, 이미지, 라이브러리 파일 추가 및 관리 (main.js에 confirmClose 함수 추가)
-DemoController.java: /about_detailed 경로 매핑 추가
-application.properties: Static 경로 설정 추가 (spring.web.resources.static-locations)
-templates/thymeleaf_test1.html: Thymeleaf 문법 테스트 페이지
+학습 목표: Java/Spring 개발 지식과 프론트엔드 기술을 결합하여 실제 웹 서비스 구현 경험 쌓기
+강의에서 배운 Java/Spring 개념을 바탕으로, 실제로 동작하는 게시판 서비스를 만들어보았습니다. 
+백엔드 서버 없이도 LocalStorage를 활용해서 데이터베이스처럼 데이터를 저장하고, 여러 사용자가 사용하는 것처럼 세션을 관리하는 방법을 구현했습니다.
 
-4주차: 데이터베이스 연동 및 테스트
-학습 내용: 데이터베이스 (RDBMS, MySQL) 소개
-Spring Data JPA (ORM, Hibernate, JDBC) 개념 및 필요성
-MySQL 설치 및 기본 설정 (데이터베이스 생성)
-Spring Boot - MySQL 연동 설정 (application.properties에 datasource 정보 추가)
-JPA Entity (@Entity, @Id, @GeneratedValue, @Column) 생성
-Repository (JpaRepository 상속) 인터페이스 생성
-Service 클래스 생성 및 @Autowired (또는 생성자 주입) 를 통한 의존성 주입
-MVC 구조에 따른 패키지 분리 (controller, model/domain, model/repository, service)
-DB 연동 테스트 (Controller에서 Service 호출, Model에 데이터 추가, Thymeleaf 페이지에서 출력)
-프로젝트 적용: pom.xml: Spring Data JPA, H2 (또는 MySQL Connector) 의존성 활성화
-application.properties: H2 데이터베이스 접속 정보 추가 (추후 MySQL로 변경 가능)
-model/domain/TestDB.java: @Entity 어노테이션을 사용한 DB 테이블 매핑 클래스 생성
-model/repository/TestRepository.java: JpaRepository를 상속받는 인터페이스 생성
-service/TestService.java: @Service 어노테이션 및 Repository 의존성 주입, findByName 메소드 구현
-controller/DemoController.java: TestService 의존성 주입 및 /testdb 경로 매핑, DB 조회 결과 Model에 추가
-templates/testdb.html: DB 조회 결과를 Thymeleaf로 출력하는 페이지
-프로젝트 구조: controller, model(domain, repository, service 하위 폴더 포함) 패키지로 코드 분리
+**구현한 주요 기능**
 
-5주차: 블로그 게시판 - 1 (조회, 글쓰기)
-학습 내용: REST API 개념 및 CRUD 연동 (HTTP Method: GET, POST)
-블로그 게시판 기능 구현 시작 (목록 조회, 글쓰기)
-DTO (Data Transfer Object) 개념 및 사용 이유
-Thymeleaf 반복문 (th:each)
-@RestController 와 @Controller 차이, @PostMapping, @ModelAttribute
-폼 전송 처리 및 리다이렉트 (redirect:/...)
+1. 게시판 CRUD
+게시글 작성, 조회, 수정, 삭제 기능 구현
+게시글 번호(ID) 기준으로 정렬
+홈으로 돌아가기 버튼 구현
+![게시판 기능](https://github.com/user-attachments/assets/e6efec76-2b57-4e1f-b75a-d0112904ab28)
 
-프로젝트 적용: model/domain/Article.java: 게시글 정보를 담는 @Entity 클래스 생성 (@Builder 사용)
-model/repository/BlogRepository.java: Article Entity를 위한 JpaRepository 인터페이스 생성
-model/dto/AddArticleRequest.java: 게시글 추가 요청 시 데이터를 전달하는 DTO 클래스 생성
-service/BlogService.java: @Service 클래스에 findAll (목록 조회), save (글 저장) 메소드 구현
-controller/BlogController.java: /article_list (GET) 요청 처리 (게시글 목록 조회 및 뷰 반환), /api/articles (POST) 요청 처리 (게시글 저장 및 리다이렉트 - 연습문제에서 수정)
-controller/BlogRestController.java: 초기 /api/articles (POST) API 구현 (JSON 반환 방식) - 이후 BlogController로 통합
-templates/article_list.html: 게시글 목록을 테이블로 보여주고 (th:each), 글쓰기 폼을 포함하는 Thymeleaf 템플릿
-index.html: 네비게이션 바에 '게시판' 메뉴 링크 추가 (/article_list)
+2. 로그인 및 사용자 관리
+LocalStorage로 여러 사용자 구분하기
+로그인한 사용자 정보로 게시글 작성자 표시
+로그인/로그아웃 기능
+회원가입 기능
+![회원가입 화면](https://github.com/user-attachments/assets/331a30a3-4dea-4710-a298-1658c9291fcb)
+![로그인 화면](https://github.com/user-attachments/assets/96227269-8efc-4c81-84c5-9a24196e7a16)
 
-6주차: 블로그 게시판 - 2
-학습 내용: ORM 매핑과 영속성 컨텍스트 (EntityManager) 개념 복습
-HTTP Method: PUT, DELETE 개념 및 RESTful API 설계
-HTML 폼에서 PUT, DELETE 메서드 사용 방법 (\_method hidden input)
-@PathVariable을 이용한 URL 경로 변수 처리
-Optional<T>를 이용한 Null 처리
-JPA Entity 수정 방법 (변경 감지 또는 명시적 save)
-예외 처리 (Controller에서 특정 ID 조회 실패 시 에러 페이지 반환, @ControllerAdvice 전역 예외 처리)
-history.back() 자바스크립트 사용법
+3. 파일 첨부 기능
+게시글에 파일 첨부할 수 있게 구현
+같은 이름의 파일을 올리면 자동으로 filename(1).ext 형식으로 이름 변경
+![게시판 파일 첨부 기능](https://github.com/user-attachments/assets/eb3eda99-e999-4a43-b1fa-eb120b5ee181)
 
-프로젝트 적용: controller/BlogController.java:
-/article_edit/{id} (GET) 매핑 추가 (수정 페이지 조회)
-/api/article_edit/{id} (PUT) 매핑 추가 (게시글 수정 처리)
-/api/article_delete/{id} (DELETE) 매핑 추가 (게시글 삭제 처리)
-service/BlogService.java: findById, update, delete 메소드 구현
-model/domain/Article.java: update(title, content) 메소드 추가
-templates/article_list.html: 각 게시글 옆에 수정/삭제 버튼 및 관련 링크/폼 추가 (th:href, th:action)
-templates/article_edit.html: 게시글 수정 폼 페이지 생성 (기존 article_list.html 재활용)
-application.properties: spring.mvc.hiddenmethod.filter.enabled=true 설정 추가
-templates/error_page/article_error.html: 게시글 조회 실패 시 보여줄 에러 페이지 생성
-controller/GlobalExceptionHandler.java: @ControllerAdvice 와 @ExceptionHandler 를 사용하여 URL 파라미터 타입 불일치 예외 처리 (연습 문제)
+4. 포트폴리오 페이지
+Bootstrap으로 반응형 포트폴리오 메인 페이지 제작
+게시판과 포트폴리오 페이지 연결
+이미지 크기 통일 및 레이아웃 정리
+
+5. 상세소개 페이지
+홈으로 돌아가기 버튼 구현
+![상세소개 페이지 UI](https://github.com/user-attachments/assets/1085f021-d5b9-4956-a863-0a50b94561a3)
+
+6. 프로젝트 데모 페이지
+![프로젝트 데모 페이지](https://github.com/user-attachments/assets/a353e5a2-50be-4b3b-9a1b-6bc787cf8340)
+   
+7. 스킬 & 경험 페이지
+![스킬 & 경험 페이지](https://github.com/user-attachments/assets/55cbd4be-5cc9-491a-b6e4-ee1b1b0f88ed)
+
+8.나의 프로젝트 페이지  
+![나의 프로젝트 페이지](https://github.com/user-attachments/assets/9b0e441d-283e-4c85-91bd-8819f02b42c6)
+
+9. 메일 보내기 버튼 구현
+![메일 보내기](https://github.com/user-attachments/assets/053bd84b-5206-409e-a14c-358102dc8d72)
+![메일 보내기2](https://github.com/user-attachments/assets/40380d73-092c-4f1b-87c6-1f7e09383c3e)
+
+10.지도 삽입 완료
+![지도 삽입 완료](https://github.com/user-attachments/assets/57827982-8369-4162-a9f2-94191e54cb32)
+
+- 프로젝트에 사용된 기술 스택
+![프로젝트에 사용된 기술 스택](https://github.com/user-attachments/assets/a2921a91-76bc-4153-a4dd-f8afc9d5aec8)
+
+- 주차별 학습 및 개발 과정
+![주차별 학습 및 개발 과정](https://github.com/user-attachments/assets/3d7e4bff-4032-46be-b08b-ebe1b6703675)
+
+배운 점과 어려웠던 점
+
+배운점:
+LocalStorage 활용: 실제 서버 없이도 데이터를 저장하고 불러오는 방법을 익혔습니다
+CRUD 전체 구현: 게시판의 핵심 기능인 생성, 조회, 수정, 삭제를 모두 구현했습니다
+파일명 중복 처리: 같은 이름의 파일을 올릴 때 자동으로 번호를 붙여주는 알고리즘을 만들었습니다
+
+어려웠지만 해결한 문제:
+스프링부트에서는 되지만 깃허브로 넘어오면서 생긴 404문제를 코드를 고치며 해결했습니다. 
+데이터베이스를 INSERT 하는 과정이 처음이라 어려웠지만, 계속 도전하면서 성공했습니다.
+
+앞으로 추가하고 싶은 기능:
+실제 Spring Boot 서버와 연결하기
+MySQL 데이터베이스 연동
+이미지 미리보기 기능
+댓글 기능
+게시글 검색 기능
+
+
+
+  
